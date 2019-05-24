@@ -15,7 +15,7 @@
 						"exec": [
 							"let processInstanceId = pm.response.json();",
 							"",
-							"pm.test('process is available', () => {",
+							"pm.test('process was created', () => {",
 							"   pm.expect(processInstanceId).to.be.above(0);",
 							"   ",
 							"   pm.environment.set('processInstanceId', processInstanceId);",
@@ -64,6 +64,76 @@
 						"{{containerId}}",
 						"processes",
 						"{{processId}}",
+						"instances"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Processes",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "57eede3c-139e-45c8-a2aa-4a2dd2a69653",
+						"exec": [
+							"let jsonData = pm.response.json();",
+							"let process = jsonData['process-instance'][0];",
+							"let processInstanceId = process['process-instance-id'];",
+							"",
+							"pm.test('process is listed', () => {",
+							"   pm.expect(processInstanceId).to.equal(pm.environment.get('processInstanceId'));",
+							"   ",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "redhatpam1!",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "pamAdmin",
+							"type": "string"
+						},
+						{
+							"key": "saveHelperData",
+							"type": "any"
+						},
+						{
+							"key": "showPassword",
+							"value": false,
+							"type": "boolean"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"url": {
+					"raw": "{{kie}}/server/containers/{{containerId}}/processes/instances",
+					"host": [
+						"{{kie}}"
+					],
+					"path": [
+						"server",
+						"containers",
+						"{{containerId}}",
+						"processes",
 						"instances"
 					]
 				}
