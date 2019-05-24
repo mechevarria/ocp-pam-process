@@ -12,8 +12,12 @@ Simple business process that makes a REST call to [jsonplaceholder](https://json
 
 * Import this git project
 
+![import](./import.png)
+
 * Test the end to end running of this process by importing `PAM.postman_collection.json` into [Postman](https://www.getpostman.com/)
-  * You will need to edit the existing `KIE` environment variable to be the URL of the kie deployment in your Openshift environment
+  * You will need to edit the existing `PAM` environment to have variables like the screenshot below. These variables are named the same as the swagger docs from the kie-server
+
+![postman](./postman.png)
 
 ## Exporting from Openshift
 
